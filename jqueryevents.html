@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Events Practice</title>
+    <!--<link href="styles/normalize.css" type="text/css" rel="stylesheet">-->
+    <!--<link href="styles/styles.css" type="text/css" rel="stylesheet">-->
+    <script src="js/jquery-3.5.0.min.js"></script>
+    <script>
+            $(function() {
+                // #16
+                $('#btn1').click(function(){
+                window.alert('The button 1 has been clicked!');
+                });
+
+                //#17
+                $("#btn2").bind("click", function(event) {window.alert("The button 2 has been clicked!");});
+
+                //#18
+                $("#btn3").on("click", function(event) {window.alert("The button 3 has been clicked!");});
+
+                //#19
+                $("body").on("click","#btnA, #btnB", function(event) {window.alert("The button has been clicked!");});
+
+                //#20
+                $('div').css('width', '400px')
+                        .css('height', '400px')
+                        .css('border', 'solid 1px silver');
+               
+                // $('body').on({
+                //     mouseenter: function() {
+                //         window.console.log("Hovered over the div!");
+                //     },
+                //     mouseleave: function() {
+                //         window.console.log("The mouse leave the div!");
+                //     },
+                //     click: function() {
+                //         window.console.log("You clicked on the div!");
+                //     }
+
+
+                // }, 'div');
+
+                //#21             
+                $('div span').wrapAll('<div></div>');
+                $('body').on({
+                    mouseenter: function() {
+                        $('div span').text("Hovered over the div!");
+                    },
+                    mouseleave: function() {
+                        $('div span').text("The mouse leave the div!");
+                    },
+                    click: function() {
+                        $('div span').text("You clicked on the div!");
+                    }
+                }, 'div');
+
+                //#22
+                $('a').on('click', function(event) {
+                    event.preventDefault();
+                    $(this).css('color', 'red')
+                    window.alert(event.target.nodeName);
+
+                });
+
+                //#23
+
+                $(window).resize(function() {
+                    $('#resizediv').text($(window).width() + "x" + $(window).height());
+
+                });
+
+                //#24
+                $('input').focus(function() {
+                    $(this).css('background-color', '#D3D3D3');
+                });
+                $('input').focusout(function() {
+                    $(this).css('background-color', 'white');
+                });
+
+                //#25
+                $('form').focus();
+                $('#submit').click(function () {
+                    let isValid = true;
+                    let name = $('#name').val().trim(); 
+                    if (name == '') {
+                        $("#name").css("border", "1px solid red");
+                        window.alert('This field is required!');
+                        isValid = false;
+                    } else {
+                        $('#sp1').text('');
+                    }
+                    $('#name').val(name).css("border", "1px solid green");
+
+                    let email = $('#email').val().trim();
+                    if (email == '') {
+                        $("#email").css("border", "1px solid red");
+                        window.alert('This field is required!');
+                    } else {
+                        $('#sp2').text('');
+                    }
+                    $('#email').val(email).css("border", "1px solid green");
+
+                    if (isValid == false) {
+                        event.preventDefault();
+                    }
+
+                });
+                
+
+
+
+            });
+
+        
+
+    </script>
+</head>
+<body>
+
+    <button id='btn1'>Button 1</button><br><br>
+    <button id='btn2'>Button 2</button><br><br>
+    <button id='btn3'>Button 3</button><br><br>
+    <button id='btnA'>Button A</button><br>
+    <button id='btnB'>Button B</button><br><br>
+    <div><span></span></div><br><br>
+    <a href="www.modulemedia.com">ModuleMedia.com</a><br><br>
+    <div id="resizediv"></div><br><br>
+    <input type="text"  name="name"><br><br>
+
+    <h3>Form</h3>
+    <form>
+        
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="Name">
+        <span id="sp1">*</span><br><br>
+
+        <label for="email">Email: </label>
+        <input type="text" id="email" name="Email">
+        <span id="sp2">*</span><br><br>
+
+        <label>&nbsp;</label>
+	    <input type="submit" id="submit" name="Submit" value="Submit">
+
+    </form>
+    
+
+
+    
+</body>
+</html>
